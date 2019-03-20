@@ -9,7 +9,10 @@ describe 'minimax' do
       1, 2, 1,
       2, 1, 2
     ]
-    expect(minimax.execute(board, human: 1, ai: 2)).to eq(0)
+
+    response = minimax.execute(board, human: 1, ai: 2)
+
+    expect(response[:score]).to eq(0)
   end
 
   it 'can give a score of 0 when different game is a draw' do
@@ -18,32 +21,70 @@ describe 'minimax' do
       1, 2, 1,
       1, 2, 1
     ]
-    expect(minimax.execute(board, human: 1, ai: 2)).to eq(0)
+
+    response = minimax.execute(board, human: 1, ai: 2)
+
+    expect(response[:score]).to eq(0)
   end
 
   it 'can give a score of 100 when ai player wins' do
-    board = [1, 1, 1, 0, 0, 0, 0, 0, 0]
-    expect(minimax.execute(board, human: nil, ai: 1)).to eq(100)
+    board = [
+      1, 1, 1,
+      0, 0, 0,
+      0, 0, 0
+    ]
+
+    response = minimax.execute(board, human: nil, ai: 1)
+
+    expect(response[:score]).to eq(100)
   end
 
   it 'can give a score of 100 when ai player win example 2' do
-    board = [2, 2, 2, 0, 0, 0, 0, 0, 0]
-    expect(minimax.execute(board, human: nil, ai: 2)).to eq(100)
+    board = [
+      2, 2, 2,
+      0, 0, 0,
+      0, 0, 0
+    ]
+
+    response = minimax.execute(board, human: nil, ai: 2)
+
+    expect(response[:score]).to eq(100)
   end
 
   it 'can give a score of 100 when ai player win example 3' do
-    board = [2, 2, 2, 1, 1, 0, 0, 0, 0]
-    expect(minimax.execute(board, human: 1, ai: 2)).to eq(100)
+    board = [
+      2, 2, 2,
+      1, 1, 0,
+      0, 0, 0
+    ]
+
+    response = minimax.execute(board, human: 1, ai: 2)
+
+    expect(response[:score]).to eq(100)
   end
 
   it 'can give a score of -100 when human player wins' do
-    board = [1, 1, 1, 0, 0, 0, 0, 0, 0]
-    expect(minimax.execute(board, human: 1, ai: nil)).to eq(-100)
+    board = [
+      1, 1, 1,
+      0, 0, 0,
+      0, 0, 0
+    ]
+
+    response = minimax.execute(board, human: 1, ai: nil)
+
+    expect(response[:score]).to eq(-100)
   end
 
   it 'can give a score of -100 when human player wins example 2' do
-    board = [2, 2, 2, 0, 0, 0, 0, 0, 0]
-    expect(minimax.execute(board, human: 2, ai: nil)).to eq(-100)
+    board = [
+      2, 2, 2,
+      0, 0, 0,
+      0, 0, 0
+    ]
+
+    response = minimax.execute(board, human: 2, ai: nil)
+
+    expect(response[:score]).to eq(-100)
   end
 
   it 'can give a score of 100 when last space is a winning move' do
@@ -52,7 +93,10 @@ describe 'minimax' do
       1, 2, 1,
       1, 2, 2
     ]
-    expect(minimax.execute(board, human: 2, ai: 1)).to eq(100)
+
+    response = minimax.execute(board, human: 2, ai: 1)
+
+    expect(response[:score]).to eq(100)
   end
 
   it 'can place mark on last available space' do
@@ -61,7 +105,10 @@ describe 'minimax' do
       1, 2, 1,
       1, 2, 0
     ]
-    expect(minimax.execute(board, human: 2, ai: 1)).to eq(8)
+
+    response = minimax.execute(board, human: 2, ai: 1)
+
+    expect(response[:move]).to eq(8)
   end
 
   it 'can place mark on last available space example 2' do
@@ -70,7 +117,10 @@ describe 'minimax' do
       1, 0, 1,
       1, 2, 2
     ]
-    expect(minimax.execute(board, human: 2, ai: 1)).to eq(4)
+
+    response = minimax.execute(board, human: 2, ai: 1)
+
+    expect(response[:move]).to eq(4)
   end
 
   it 'can place mark on last available space example 3' do
@@ -79,7 +129,10 @@ describe 'minimax' do
       0, 1, 1,
       1, 2, 2
     ]
-    expect(minimax.execute(board, human: 2, ai: 1)).to eq(3)
+
+    response = minimax.execute(board, human: 2, ai: 1)
+
+    expect(response[:move]).to eq(3)
   end
 
   it 'can place winning mark on 2nd to last available space' do
@@ -88,6 +141,45 @@ describe 'minimax' do
       0, 1, 2,
       1, 2, 0
     ]
-    expect(minimax.execute(board, human: 1, ai: 2)).to eq(8)
+
+    response = minimax.execute(board, human: 1, ai: 2)
+
+    expect(response[:move]).to eq(8)
+  end
+
+  it 'can place winning mark on 2nd to last available space example 2' do
+    board = [
+      1, 1, 0,
+      0, 1, 2,
+      1, 2, 2
+    ]
+
+    response = minimax.execute(board, human: 1, ai: 2)
+
+    expect(response[:move]).to eq(2)
+  end
+
+  it 'can block player from winning' do
+    board = [
+      1, 2, 2,
+      1, 0, 2,
+      0, 1, 1
+    ]
+
+    response = minimax.execute(board, human: 1, ai: 2)
+
+    expect(response[:move]).to eq(6)
+  end
+
+  xit 'can block player from winning example 2' do
+    board = [
+      1, 1, 0,
+      2, 0, 0,
+      0, 0, 0
+    ]
+
+    response = minimax.execute(board, human: 1, ai: 2)
+
+    expect(response[:move]).to eq(2)
   end
 end
