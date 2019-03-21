@@ -149,14 +149,14 @@ describe 'minimax' do
 
   it 'can place winning mark on 2nd to last available space example 2' do
     board = [
-      1, 1, 0,
-      0, 1, 2,
+      2, 1, 0,
+      0, 1, 1,
       1, 2, 2
     ]
 
     response = minimax.execute(board, human: 1, ai: 2)
 
-    expect(response[:move]).to eq(2)
+    expect(response[:move]).to eq(3)
   end
 
   it 'can block player from winning' do
@@ -171,7 +171,7 @@ describe 'minimax' do
     expect(response[:move]).to eq(6)
   end
 
-  xit 'can block player from winning example 2' do
+  it 'can block player from winning example 2' do
     board = [
       1, 1, 0,
       2, 0, 0,
