@@ -1,5 +1,5 @@
 language: ruby
 script: bundle exec rspec
 before_install:
-  - gem install -v 2.0.1 bundler --no-rdoc --no-ri
+  - gem install bundler:2.0.1
   - rvm install 2.6.2
